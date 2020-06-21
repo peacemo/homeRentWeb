@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台</title>
+    <link rel="stylesheet" th:href="@{/amazeui/assets/css/amazeui.css}"/>
+    <script  th:src="@{/amazeui/assets/js/jquery.min.js}"></script>
+    <script  th:src="@{/amazeui/assets/js/amazeui.js}"></script>
+    <script  th:src="@{/amazeui/pagination/amazeui-pagination.js}"></script>
+</head>
+<script>
+    function showUsers(path) {
+
+        $("#main-content").load(path);
+
+    }
+</script>
+<body>
+<!-- 按钮触发器， 需要指定 target -->
+<button class="am-btn am-radius am-btn-xs am-margin-left am-margin-top" data-am-offcanvas="{target: '#doc-oc-demo1', effect: 'push'}">菜单</button>
+<!-- 侧边栏内容 -->
+<div id="doc-oc-demo1" class="am-offcanvas">
+    <div class="am-offcanvas-bar">
+        <div class="am-offcanvas-content">
+            <a href="javascript:void(0)" onclick="showUsers('/users/show')">用户维护</a><br>
+            <a href="javascript:void(0)" onclick="showUsers('/houses/show')">房源维护</a>
+        </div>
+    </div>
+</div>
+
+<div id="main-content">
+<!--    右侧信息展示页面-->
+</div>
+
+</body>
+</html>

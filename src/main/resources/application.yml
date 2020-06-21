@@ -1,0 +1,20 @@
+#hikariCP springboot默认的
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yunhome?serverTimezone=UTC&useSSL=false
+    username: root
+    password: carlchen
+  thymeleaf:
+    cache: false
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#scan the xmls in pkg "mapper"
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

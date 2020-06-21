@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" th:href="@{/amazeui/assets/css/amazeui.css}"/>
+    <script  th:src="@{/amazeui/assets/js/jquery.min.js}"></script>
+    <script  th:src="@{/amazeui/assets/js/amazeui.js}"></script>
+    <script  th:src="@{/amazeui/pagination/amazeui-pagination.js}"></script>
+</head>
+<body>
+<!--&lt;!&ndash;            搜索框&ndash;&gt;-->
+<!--<div class="am-input-group am-u-lg-3 am-align-left am-margin-left">-->
+<!--    <span class="am-input-group-btn">-->
+<!--        <button class="am-btn am-btn-default" type="button" onclick="search()"><span class="am-icon-search"></span> </button>-->
+<!--    </span>-->
+<!--    <input  id="searchContent" type="text" class="am-form-field" placeholder="按用户名搜索">-->
+<!--</div>-->
+    <!-- .am-u-sm-centered 始终居中 -->
+    <div class="am-g am-text-center">
+        <div class="am-u-sm-10 am-u-sm-centered">
+            <table class="am-table am-table-bordered am-table-striped am-table-hover">
+                <tr  class="am-text-center">
+                    <th>UID</th>
+                    <th>NAME</th>
+                    <th>PSW</th>
+                    <th>SEX</th>
+                    <th>BDAY</th>
+                    <th>PROFILE</th>
+                    <th>ROLE</th>
+                </tr>
+                <tr th:each="users:${usersPage.list}">
+                    <td th:text="${users.uid}"></td>
+                    <td th:text="${users.name}"></td>
+                    <td th:text="${users.psw}"></td>
+                    <td th:text="${users.sex}"></td>
+                    <td th:text="${#dates.format(users.birth,'yyyy-mm-dd')}"></td>
+                    <td>
+                        <img th:src="${users.headImg}" th:width="100px">
+                    </td>
+                    <td th:text="${users.role}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--    分页-->
+    <div class="am-container">
+        <ul class="am-pagination am-pagination-centered">
+        </ul>
+    </div>
+
+    <input type="hidden" id="pages"   th:value="${usersPage.pages}" />
+    <input type="hidden" id="pageNum" th:value="${usersPage.pageNum}" />
+</body>
+<script>
+    var pages=$("#pages").val();
+    var pageNum=$("#pageNum").val();
+
+    console.log(pages);
+    console.log(pageNum);
+    var pagination = new Pagination({
+        wrap: $('.am-pagination'),//存放分页内容
+        count: parseInt(pages),//总页数
+        current: parseInt(pageNum),//当前页
+        prevText: '上一页', // prev 按钮的文本内容
+        nextText: '下一页', // next 按钮的文本内容
+        callback: function (current) { // 每一个页数按钮的回调事件
+            console.log(current)
+            // location.href="/users/show?pageNo="+current;
+            $("#main-content").load("/users/show?pageNo="+current);
+        }
+    });
+
+    // function search() {
+    //
+    //     var content = $("#searchContent").val();
+    //     location.href="/users/search?searchContent=" + content;
+    //
+    // }
+</script>
+</html>
